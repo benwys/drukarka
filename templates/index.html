@@ -11,17 +11,21 @@
         .flash { padding: 1em; margin-bottom: 1em; border-radius: 5px; border: 1px solid transparent; }
         .flash-success { background: #d4edda; color: #155724; border-color: #c3e6cb; }
         .flash-error { background: #f8d7da; color: #721c24; border-color: #f5c6cb; }
-        input[type="file"] { border: 1px solid #ccc; padding: 10px; border-radius: 5px; width: 100%; box-sizing: border-box; }
+        input[type="file"] { border: 1px solid #ccc; padding: 10px; border-radius: 5px; width: 100%; box-sizing: border-box; margin-bottom: 1em; }
         input[type="submit"] { background: #007bff; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; font-size: 1em; width: 100%; margin-top: 1em; }
         input[type="submit"]:hover { background: #0056b3; }
         .footer { text-align: center; margin-top: 2em; color: #666; font-size: 0.9em; }
+        /* Style for new options */
+        .options { margin-top: 1.5em; border-top: 1px solid #eee; padding-top: 1.5em; }
+        .option-group { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1em; }
+        .option-group label { font-weight: bold; }
+        .option-group input[type="number"], .option-group select, .option-group input[type="checkbox"] { padding: 5px; border-radius: 4px; border: 1px solid #ccc; }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Wyślij Plik do Wydruku</h1>
         
-        <!-- Ta sekcja wyświetli wiadomości o sukcesie lub błędzie -->
         {% with messages = get_flashed_messages(with_categories=true) %}
           {% if messages %}
             {% for category, message in messages %}
@@ -30,9 +34,28 @@
           {% endif %}
         {% endwith %}
 
-        <!-- Formularz do przesyłania plików -->
         <form method=post enctype=multipart/form-data>
           <input type=file name=file>
+          
+          <!-- NOWA SEKCJA Z OPCJAMI -->
+          <div class="options">
+            <div class="option-group">
+                <label for="duplex">Druk dwustronny:</label>
+                <input type="checkbox" id="duplex" name="duplex" checked>
+            </div>
+            <div class="option-group">
+                <label for="copies">Liczba kopii:</label>
+                <input type="number" id="copies" name="copies" value="1" min="1" max="100" style="width: 60px;">
+            </div>
+            <div class="option-group">
+                <label for="orientation">Orientacja:</label>
+                <select id="orientation" name="orientation">
+                    <option value="portrait" selected>Pionowa</option>
+                    <option value="landscape">Pozioma</option>
+                </select>
+            </div>
+          </div>
+
           <input type=submit value="Drukuj!">
         </form>
     </div>
