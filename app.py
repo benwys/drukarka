@@ -83,5 +83,4 @@ def upload_and_print():
 if __name__ == '__main__':
     # host='0.0.0.0' sprawia, że serwer jest widoczny w sieci
     # port=80 to standardowy port HTTP (nie trzeba go wpisywać w przeglądarce)
-    app.run(host='0.0.0.0', port=80, debug=True)
-    
+    app.run(host='0.0.0.0', port=5000, debug=True)
